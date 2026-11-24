@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatUnitCost } from "../../lib/formatUnitCost";
 import { notFound } from "next/navigation";
 import { getPartById } from "../../actions/records";
 import YearCardCarousel from "../../components/YearCardCarousel";
@@ -152,9 +153,9 @@ export default async function PartDetailPage({ params }: { params: Promise<{ id:
               {
                 title: "Cost Breakdown / Unit",
                 rows: [
-                  { label: "Tooling Cost (RM)", value: fmtC(part.toolingCost) },
-                  { label: "Packaging Cost (RM)", value: fmtC(part.packagingCost) },
-                  { label: "Others (RM)", value: fmtC(part.others) },
+                  { label: "Tooling Cost (RM)", value: formatUnitCost(part.toolingCost) },
+                  { label: "Packaging Cost (RM)", value: formatUnitCost(part.packagingCost) },
+                  { label: "Others (RM)", value: formatUnitCost(part.others) },
                 ],
               },
             ].map(({ title, rows }) => (
@@ -168,7 +169,7 @@ export default async function PartDetailPage({ params }: { params: Promise<{ id:
                 {title === "Cost Breakdown / Unit" && (
                   <div className="mx-5 mb-4 mt-1 rounded-lg bg-slate-800 px-4 py-3 flex justify-between items-center">
                     <span className="text-xs font-bold text-slate-200">Rate / Unit (RM)</span>
-                    <span className="text-sm font-extrabold text-white">{fmtC(ratePerUnit)}</span>
+                    <span className="text-sm font-extrabold text-white">{formatUnitCost(ratePerUnit)}</span>
                   </div>
                 )}
               </div>
@@ -201,7 +202,7 @@ export default async function PartDetailPage({ params }: { params: Promise<{ id:
 
             {/* Stat cards */}
             <div className="grid grid-cols-2 xl:grid-cols-4 gap-4">
-              <StatCard label="Total Investment (RM)" value={fmtC(part.totalCost)} sub={`${fmtN(part.ammVol)} units × ${fmtC(ratePerUnit)}`} />
+              <StatCard label="Total Investment (RM)" value={fmtC(part.totalCost)} sub={`${fmtN(part.ammVol)} units × ${formatUnitCost(ratePerUnit)}`} />
               <StatCard label="Total Recovered (RM)" value={fmtC(totalRecovered)} sub={`${recoveryPct.toFixed(1)}% of total`} valueClass="text-emerald-600" />
               <StatCard label="Balance Investment (RM)" value={balanceInvestment > 0 ? fmtC(balanceInvestment) : "Cleared"} sub={`${fmtN(part.totalBalQty)} units remaining`} valueClass={balanceInvestment > 0 ? "text-rose-600" : "text-emerald-600"} />
               <StatCard label="Qty Delivered (PCS)" value={fmtN(part.totalQtyDel)} sub={`of ${fmtN(part.ammVol)} total volume`} valueClass="text-blue-600" />

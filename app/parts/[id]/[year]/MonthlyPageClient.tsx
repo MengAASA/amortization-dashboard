@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { formatUnitCost } from "../../../lib/formatUnitCost";
 import { AmortizationRecord, MONTH_ORDER } from "../../../data/amortization";
 import { saveMonthlyData, deleteMonthlyRecord } from "../../../actions/monthly";
 
@@ -324,7 +325,7 @@ export default function MonthlyPageClient({ part, year, initialMonths, existingA
                   <p className="text-lg font-extrabold text-emerald-800">
                     {fmtC((parseInt(qtyInput) || 0) * ratePerUnit)}
                   </p>
-                  <p className="text-[10px] text-gray-500 mt-0.5">{parseInt(qtyInput) || 0} units × RM {fmtC(ratePerUnit)}</p>
+                  <p className="text-[10px] text-gray-500 mt-0.5">{parseInt(qtyInput) || 0} units × RM {formatUnitCost(ratePerUnit)}</p>
                 </div>
               )}
             </div>

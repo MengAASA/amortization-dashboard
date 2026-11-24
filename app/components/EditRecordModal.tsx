@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatUnitCost } from "../lib/formatUnitCost";
 import { AmortizationRecord } from "../data/amortization";
 import { UpdateRecordInput } from "../actions/records";
 
@@ -162,15 +163,15 @@ export default function EditRecordModal({ part, onClose, onSubmit, saving = fals
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <label className={labelCls}>Tooling Cost</label>
-                <input className={inputCls} type="number" min="0" step="0.01" value={toolingCost} onChange={e => setToolingCost(e.target.value)} placeholder="0.00" />
+                <input className={inputCls} type="number" min="0" step="any" value={toolingCost} onChange={e => setToolingCost(e.target.value)} placeholder="0.00" />
               </div>
               <div>
                 <label className={labelCls}>Packaging Cost</label>
-                <input className={inputCls} type="number" min="0" step="0.01" value={packagingCost} onChange={e => setPackagingCost(e.target.value)} placeholder="0.00" />
+                <input className={inputCls} type="number" min="0" step="any" value={packagingCost} onChange={e => setPackagingCost(e.target.value)} placeholder="0.00" />
               </div>
               <div>
                 <label className={labelCls}>Others</label>
-                <input className={inputCls} type="number" min="0" step="0.01" value={others} onChange={e => setOthers(e.target.value)} placeholder="0.00" />
+                <input className={inputCls} type="number" min="0" step="any" value={others} onChange={e => setOthers(e.target.value)} placeholder="0.00" />
               </div>
             </div>
           </div>
@@ -187,7 +188,7 @@ export default function EditRecordModal({ part, onClose, onSubmit, saving = fals
                 {totalCost > 0 ? fmtC(totalCost) : <span className="text-gray-400 font-normal">Auto-calculated</span>}
               </div>
               {totalCost > 0 && (
-                <p className="text-[10px] text-gray-500 mt-1">{fmtC(ratePerUnit)} / unit × {volume.toLocaleString()} units</p>
+                <p className="text-[10px] text-gray-500 mt-1">{formatUnitCost(ratePerUnit)} / unit × {volume.toLocaleString()} units</p>
               )}
             </div>
           </div>
