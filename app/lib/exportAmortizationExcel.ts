@@ -157,7 +157,7 @@ export async function exportAmortizationToExcel(
       const isTotalCost = colIndex === 10;
       styleCell(cell, {
         align: { horizontal: colIndex <= 4 ? "left" : "right", vertical: "middle" },
-        numFmt: isMoney ? "#,##0.00" : isInt ? "#,##0" : isTotalCost ? "#,##0.00" : undefined,
+        numFmt: isMoney ? "#,##0.00########" : isInt ? "#,##0" : isTotalCost ? "#,##0.00" : undefined,
       });
     });
 
